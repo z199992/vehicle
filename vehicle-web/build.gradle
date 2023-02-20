@@ -1,0 +1,9 @@
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "mysql:mysql-connector-java:${mysqlJdbcVersion}"
+    implementation 'org.liquibase:liquibase-core'
+
+    implementation project(":vehicle-user")
+    implementation project(":vehicle-security")
+}

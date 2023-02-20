@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+    <changeSet id="Create User Info" author="zjr" >
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="USER_INFO"/></not>
+        </preConditions>
+        <createTable tableName="USER_INFO" remarks="用户信息表">
+            <column name="ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="USER_INFO_ID_PK" nullable="false"/>
+            </column>
+            <column name="ACCOUNT" type="varchar(100)" remarks="登录账号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="varchar(100)" remarks="登录密码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NICK_NAME" type="varchar(100)" remarks="用户名（昵称）">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXPIRE_TIME" type="DATETIME" remarks="用戶到期时间"/>
+            <column name="CREDENTIALS_EXPIRE_TIME" type="DATETIME" remarks="密码到期时间"/>
+            <column name="LOCKED" type="BOOLEAN" defaultValue="false" remarks="是否锁定"/>
+            <column name="ENABLE" type="BOOLEAN" defaultValue="true" remarks="是否启用"/>
+            <column name="CREATE_TIME" type="DATETIME" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATE_TIME" type="DATETIME" remarks="修改时间">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="Add-V1" author="zjr">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(ID) from USER_INFO where ACCOUNT = 'administrator';</sqlCheck>
+        </preConditions>
+        <insert tableName="USER_INFO">
+            <column name="ACCOUNT" value="administrator"/>
+            <column name="PASSWORD" value="$2a$10$fQo5tj6vpZZ7L.vE6PQQLOjN/2rNtD1H/wYhHopsH.XlATh7OHHSe"/>
+            <column name="NICK_NAME" value="Administrator"/>
+            <column name="LOCKED" valueBoolean="false"/>
+            <column name="ENABLE" valueBoolean="true"/>
+            <column name="CREATE_TIME" value="NOW()"/>
+            <column name="UPDATE_TIME" value="NOW()"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,12 @@
+# 项目排除路径
+/.gradle/
+/build/
+/vehicle-core/build/
+/vehicle-core/build/classes/java/main/
+/vehicle-security/build/
+/vehicle-security/build/classes/java/main/
+/vehicle-user/build/
+/vehicle-user/build/classes/java/main/
+/vehicle-web/build/
+/vehicle-web/build/classes/java/main/
+/vehicle-web/build/classes/java/test/

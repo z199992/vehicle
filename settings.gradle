@@ -1,0 +1,6 @@
+rootProject.name = 'vehicle'
+include 'vehicle-core'
+include 'vehicle-web'
+include 'vehicle-security'
+include 'vehicle-user'
+
