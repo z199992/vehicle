@@ -29,6 +29,9 @@ allprojects {
 
         implementation "org.mapstruct:mapstruct:${mapstructVersion}"
         implementation "com.google.guava:guava:${googleGuavaVersion}"
+        implementation "org.apache.commons:commons-lang3:${commonsLangVersion}"
+        implementation "org.apache.commons:commons-collections4:${commonsCollectionsVersion}"
+        implementation "commons-io:commons-io:${commonsIOVersion}"
 
         annotationProcessor "com.querydsl:querydsl-apt:${querydslVersion}:jakarta"
         annotationProcessor "org.springframework.boot:spring-boot-starter-data-jpa"

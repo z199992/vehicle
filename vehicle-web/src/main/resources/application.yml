@@ -11,3 +11,10 @@ security:
   token:
     subject: vehicle
     issuer: https://www.xunlekj.com
+springdoc:
+  swagger-ui:
+    path: /api/doc
+    doc-expansion: none
+  model-converters:
+    pageable-converter:
+      enabled: true

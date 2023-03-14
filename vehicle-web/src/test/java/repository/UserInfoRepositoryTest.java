@@ -1,6 +1,7 @@
 package repository;
 
 import com.xunlekj.Application;
+import com.xunlekj.user.model.entity.UserInfo;
 import com.xunlekj.user.repository.UserInfoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,10 @@ class UserInfoRepositoryTest {
 
     @Test
     public void test() {
-        System.out.println("".toUpperCase());
-        System.out.println(userInfoRepository.findAll());
+        UserInfo userInfo = new UserInfo();
+        userInfo.setAccount("test");
+        userInfo.setPassword("usexxxr");
+        userInfo.setNickName("test");
+        userInfoRepository.save(userInfo);
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="CreateIDGenerator" author="zjr">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ID_SERIAL_NO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ID_SERIAL_NO" remarks="ID記錄表">
+            <column name="ID" type="varchar(30)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ID_SERIAL_NO_ID_PK"/>
+            </column>
+            <column name="NUM" type="varchar(30)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

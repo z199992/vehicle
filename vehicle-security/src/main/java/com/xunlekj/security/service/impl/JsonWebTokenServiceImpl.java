@@ -50,18 +50,13 @@ public class JsonWebTokenServiceImpl implements JsonWebTokenService {
 
     private String getAccountOfToken(String token) throws Exception  {
         SignedJWT signedJWT = SignedJWT.parse(token);
-        if(signedJWT.verify(jwsVerifier)) {
+        if(!signedJWT.verify(jwsVerifier)) {
             throw new JwtException("Token signature is illegal!");
         }
-        if(DateUtils.isAfter(signedJWT.getJWTClaimsSet().getExpirationTime(), new Date(), 600)) {
+        if(DateUtils.isAfter(new Date(), signedJWT.getJWTClaimsSet().getExpirationTime(), 600)) {
             throw new JwtException("Token expired!");
         }
 
         return signedJWT.getJWTClaimsSet().getClaim("ACCOUNT").toString();
-    }
-
-    @Override
-    public void saveToken(String username, String token) {
-
     }
 }

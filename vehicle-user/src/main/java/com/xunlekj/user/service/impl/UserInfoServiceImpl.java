@@ -5,6 +5,8 @@ import com.xunlekj.user.model.entity.UserInfo;
 import com.xunlekj.user.repository.UserInfoRepository;
 import com.xunlekj.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,5 +21,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         return repository.findOne(QUserInfo.userInfo.account.eq(account));
     }
 
-
+    @Override
+    public Page<UserInfo> getAllUserInfo(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 }

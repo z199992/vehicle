@@ -1,6 +1,6 @@
 package com.xunlekj.user.model.entity;
 
-import com.xunlekj.auth.model.dto.User;
+import com.xunlekj.jpa.annotations.CustomTableGenerator;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,7 +19,7 @@ public class UserInfo implements Serializable {
     private static final long serialVersionUID = 3747799467500583519L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @CustomTableGenerator(type = "USI")
     private String id;
     private String account;
     private String password;
@@ -27,8 +27,9 @@ public class UserInfo implements Serializable {
 
     private LocalDateTime expireTime;
     private LocalDateTime credentialsExpireTime;
-    private boolean locked;
-    private boolean enable;
+
+    private Boolean locked = false;
+    private Boolean enable = true;
 
     @CreatedDate
     private LocalDateTime createTime;

@@ -3,12 +3,12 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
-    <changeSet id="Create User Info" author="zjr" >
+    <changeSet id="Create User Info" author="zjr">
         <preConditions onFail="MARK_RAN">
             <not><tableExists tableName="USER_INFO"/></not>
         </preConditions>
         <createTable tableName="USER_INFO" remarks="用户信息表">
-            <column name="ID" type="bigint" autoIncrement="true">
+            <column name="ID" type="varchar(30)">
                 <constraints primaryKey="true" primaryKeyName="USER_INFO_ID_PK" nullable="false"/>
             </column>
             <column name="ACCOUNT" type="varchar(100)" remarks="登录账号">
@@ -32,11 +32,12 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="Add-V1" author="zjr">
+    <changeSet id="Add-Administrator" author="zjr">
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(ID) from USER_INFO where ACCOUNT = 'administrator';</sqlCheck>
+            <sqlCheck expectedResult="0">select count(ID) from USER_INFO where ID = 'Administrator';</sqlCheck>
         </preConditions>
         <insert tableName="USER_INFO">
+            <column name="ID" value="Administrator"/>
             <column name="ACCOUNT" value="administrator"/>
             <column name="PASSWORD" value="$2a$10$fQo5tj6vpZZ7L.vE6PQQLOjN/2rNtD1H/wYhHopsH.XlATh7OHHSe"/>
             <column name="NICK_NAME" value="Administrator"/>
@@ -44,6 +45,17 @@
             <column name="ENABLE" valueBoolean="true"/>
             <column name="CREATE_TIME" value="NOW()"/>
             <column name="UPDATE_TIME" value="NOW()"/>
+        </insert>
+    </changeSet>
+    <changeSet id="Set-Administrator-Role" author="zjr"  runOrder="last">
+        <preConditions onFail="CONTINUE">
+            <tableExists tableName="ROLE_MAPPING"/>
+        </preConditions>
+        <insert tableName="ROLE_MAPPING">
+            <column name="USER_ID" value="Administrator"/>
+            <column name="ROLE_ID" value="ADMINISTRATOR"/>
+            <column name="SHOP_ID" value="ROOT"/>
+            <column name="CREATE_TIME" value="NOW()"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
