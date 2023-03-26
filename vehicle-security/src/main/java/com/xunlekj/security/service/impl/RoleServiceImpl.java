@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<String> getRolesByUser(String userId) {
-        return Streams.stream(getRoleMappingByUserId(userId)).map(RoleMapping::getRoleId).toList();
+        return Streams.stream(getRoleMappingByUserId(userId)).map(RoleMapping::getRole).toList();
     }
 
     public Iterable<RoleMapping> getRoleMappingByUserId(String userId) {

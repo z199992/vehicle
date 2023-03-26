@@ -12,6 +12,9 @@
             <column name="ID" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="CUSTOMER_ID_PK" nullable="false"/>
             </column>
+            <column name="NAME" type="varchar(30)" remarks="客户姓名"/>
+            <column name="PHONE" type="varchar(50)" remarks="客户电话"/>
+            <column name="EMAIL" type="varchar(50)" remarks="客户email"/>
             <column name="EXPIRE_TIME" type="DATETIME" remarks="客户到期时间"/>
             <column name="LOCKED" type="BOOLEAN" defaultValue="false" remarks="是否锁定"/>
             <column name="ENABLE" type="BOOLEAN" defaultValue="true" remarks="是否启用"/>

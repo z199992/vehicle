@@ -4,19 +4,18 @@ import com.xunlekj.auth.model.dto.User;
 import com.xunlekj.enums.Module;
 import com.xunlekj.enums.OperationType;
 import com.xunlekj.user.model.entity.UserInfo;
-import lombok.Data;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.web.authentication.switchuser.SwitchUserGrantedAuthority;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 public class UserImpl implements User, Serializable {
     @Serial
     private static final long serialVersionUID = -7007231703681365183L;
@@ -24,14 +23,19 @@ public class UserImpl implements User, Serializable {
     @Getter
     private final UserInfo userInfo;
 
-    @Getter
-    private final List<String> roles;
-
     private final Map<Module, OperationType> moduleOperationTypeMap;
+
+    private final Collection<? extends GrantedAuthority> authorities;
+
+    public UserImpl(UserInfo userInfo, Map<Module, OperationType> moduleOperationTypeMap, List<String> roles) {
+        this.userInfo = userInfo;
+        this.moduleOperationTypeMap = moduleOperationTypeMap;
+        this.authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
@@ -77,5 +81,10 @@ public class UserImpl implements User, Serializable {
     @Override
     public String getNickName() {
         return getUserInfo().getNickName();
+    }
+
+    @Override
+    public List<String> getRoles() {
+        return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
     }
 }

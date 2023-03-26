@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         UserInfo userInfo = findExistUserInfo(username);
         List<String> roles = roleService.getRolesByUser(userInfo.getId());
         Map<Module, OperationType> moduleOperationTypeMap = getModuleOperationTypeMap(roles);
-        return new UserImpl(userInfo, roles, moduleOperationTypeMap);
+        return new UserImpl(userInfo, moduleOperationTypeMap, roles);
     }
 
     @Override

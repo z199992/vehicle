@@ -20,11 +20,18 @@ public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    private String name;
+
+    private String phone;
+
+    private String email;
+
     private LocalDateTime expireTime;
 
-    private Boolean locked = false;
+    private Boolean locked;
 
-    private Boolean enable = true;
+    private Boolean enable;
 
     @CreatedDate
     private LocalDateTime createTime;

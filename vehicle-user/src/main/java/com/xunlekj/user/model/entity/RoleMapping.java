@@ -31,4 +31,8 @@ public class RoleMapping implements Serializable {
 
     @CreatedDate
     private LocalDateTime createTime;
+
+    public String getRole() {
+        return "ROLE_" +  getRoleId();
+    }
 }
