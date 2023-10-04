@@ -19,8 +19,8 @@ public class CustomTableGenerator extends TableGenerator {
     private static final int interval = 1;
     private String prefix = "";
     private int length = 17;
-    private String type;
-    private CustomIdGeneratorCreationContext context;
+    private final String type;
+    private final CustomIdGeneratorCreationContext context;
 
     public CustomTableGenerator(com.xunlekj.jpa.annotations.CustomTableGenerator config,
                                 Member annotatedMember,
@@ -28,7 +28,7 @@ public class CustomTableGenerator extends TableGenerator {
         this.length = config.length();
         this.type = config.type();
         this.context = context;
-        if (config.prefix().length() > 0) {
+        if (!config.prefix().isEmpty()) {
             this.prefix = config.prefix();
         } else {
             this.prefix = this.type;

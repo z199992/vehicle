@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/authentication")
 public class AuthenticationController {
@@ -22,8 +25,9 @@ public class AuthenticationController {
             summary = "登录",
             tags = "Authentication"
     )
-    @PostMapping(value = "/login", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String login(@RequestBody @Valid LoginInfo loginInfo) throws Exception {
-        return userService.login(loginInfo.getAccount(), loginInfo.getPassword());
+    @PostMapping(value = "/login")
+    public Map<String, String> login(@RequestBody @Valid LoginInfo loginInfo) throws Exception {
+        String token = userService.login(loginInfo.getAccount(), loginInfo.getPassword());
+        return Collections.singletonMap("token", token);
     }
 }

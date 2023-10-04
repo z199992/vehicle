@@ -15,4 +15,6 @@ public interface User extends UserDetails {
     String getNickName();
 
     List<String> getRoles();
+
+    String getTenantId();
 }

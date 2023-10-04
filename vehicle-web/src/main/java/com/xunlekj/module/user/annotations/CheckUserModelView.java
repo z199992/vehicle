@@ -6,6 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("@MV.mv(principal, T(com.xunlekj.enums.Module).User, T(com.xunlekj.enums.OperationType).View)")
+@PreAuthorize("@MV.mv(principal, T(com.xunlekj.enums.Module).SystemUser, T(com.xunlekj.enums.OperationType).View)")
 public @interface CheckUserModelView {
 }

@@ -1,6 +1,9 @@
-spring:
+vehicle:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/vehicle
+    address: jdbc:mysql://localhost:3306/
+    url: ${vehicle.datasource.address}vehicle
     username: root
     password: 123
+    system-change-log: classpath:db/db.changelog-system.xml
+    tenant-change-log: classpath:db/db.changelog-tenant.xml

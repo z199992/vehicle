@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "vehicle.datasource.driver-class-name",
+      "type": "java.lang.String",
+      "description": "数据库驱动."
+    },
+    {
+      "name": "vehicle.datasource.url",
+      "type": "java.lang.String",
+      "description": "数据库URL."
+    },
+    {
+      "name": "vehicle.datasource.username",
+      "type": "java.lang.String",
+      "description": "数据库账户."
+    },
+    {
+      "name": "vehicle.datasource.password",
+      "type": "java.lang.String",
+      "description": "数据库密码."
+    },
+    {
+      "name": "vehicle.datasource.tenant-change-log",
+      "type": "java.lang.String",
+      "description": "租户数据库变更."
+    },
+    {
+      "name": "vehicle.datasource.system-change-log",
+      "type": "java.lang.String",
+      "description": "系统数据库变更."
+    },
+    {
+      "name": "vehicle.datasource.address",
+      "type": "java.lang.String",
+      "description": "数据库地址"
+    }
+  ]
+}

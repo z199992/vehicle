@@ -3,11 +3,10 @@ package com.xunlekj.security.model.dto;
 import com.xunlekj.auth.model.dto.User;
 import com.xunlekj.enums.Module;
 import com.xunlekj.enums.OperationType;
-import com.xunlekj.user.model.entity.UserInfo;
+import com.xunlekj.system.user.model.entity.UserInfo;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.web.authentication.switchuser.SwitchUserGrantedAuthority;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -86,5 +85,10 @@ public class UserImpl implements User, Serializable {
     @Override
     public List<String> getRoles() {
         return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getTenantId() {
+        return getUserInfo().getTenantId();
     }
 }
