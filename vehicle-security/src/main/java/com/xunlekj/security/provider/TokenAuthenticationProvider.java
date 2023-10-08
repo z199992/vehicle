@@ -26,6 +26,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
             String account = jsonWebTokenService.getAccountByToken(bearer.getToken());
             UserDetails user = userService.loadUserByUsername(account);
             if(user != null) {
+                userService.checkUserCanLogin(user);
                 return new UsernamePasswordAuthenticationToken(user, bearer.getToken(), user.getAuthorities());
             } else {
                 throw new InvalidBearerTokenException("Failed to authenticate since the JWT was invalid");

@@ -1,5 +1,6 @@
 package com.xunlekj.global.controller;
 
+import com.xunlekj.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,10 @@ public class ExceptionController {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> illegalArgumentException(AuthenticationCredentialsNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<String> baseException(BaseException exception) {
+        return ResponseEntity.status(exception.getHttpStatus()).body(exception.getMessage());
     }
 }

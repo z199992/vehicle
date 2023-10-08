@@ -4,11 +4,13 @@ import com.xunlekj.constant.ModuleConstants;
 import com.xunlekj.constant.RoleConstants;
 import com.xunlekj.enums.Module;
 import com.xunlekj.enums.OperationType;
+import com.xunlekj.exception.LoginException;
 import com.xunlekj.security.model.dto.UserImpl;
 import com.xunlekj.security.service.JsonWebTokenService;
 import com.xunlekj.security.service.UserService;
 import com.xunlekj.system.user.model.entity.UserInfo;
 import com.xunlekj.system.user.service.UserInfoService;
+import io.micrometer.common.util.StringUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,9 @@ public class UserServiceImpl implements UserService {
     public String login(String account, String password) throws Exception {
         try {
             UserInfo userInfo = findExistUserInfo(account);
+
             checkPassword(password, userInfo.getPassword());
+            checkUserCanLogin(userInfo);
 
             return jsonWebTokenService.createToken(account);
         } catch (Exception e) {
@@ -80,5 +84,35 @@ public class UserServiceImpl implements UserService {
     public boolean addUser(UserInfo userInfo) {
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         return userInfoService.addUserInfo(userInfo);
+    }
+
+    /**
+     * 判断用户是否可以登录
+     */
+    @Override
+    public void checkUserCanLogin(UserInfo userInfo) throws LoginException {
+        if(!Boolean.TRUE.equals(userInfo.getEnable())) {
+            throw new LoginException("用户已被禁用!");
+        }
+
+        if(!Boolean.TRUE.equals(userInfo.getLocked())) {
+            throw new LoginException("用户已被锁定!");
+        }
+
+        switch (userInfo.getType()) {
+            case Administrator:
+            case SystemSuperUser:
+                break;
+            case TenantManager:
+            case User:
+                if(StringUtils.isNotBlank(userInfo.getTenantId())) {
+                    throw new LoginException("用户未分配租户!");
+                }
+        }
+    }
+
+    @Override
+    public void checkUserCanLogin(UserDetails user) throws LoginException {
+        checkUserCanLogin(((UserImpl) user).getUserInfo());
     }
 }
