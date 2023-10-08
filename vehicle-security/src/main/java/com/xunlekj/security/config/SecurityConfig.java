@@ -7,15 +7,19 @@ import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
+import com.xunlekj.security.authorization.CustomAuthorizationManager;
 import com.xunlekj.security.provider.TokenAuthenticationProvider;
 import com.xunlekj.security.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.springframework.aop.Advisor;
+import org.springframework.aop.support.JdkRegexpMethodPointcut;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,7 +42,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableWebSecurity
 @Configuration
 @Slf4j
@@ -135,4 +139,12 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public Advisor authorizationManagerBeforeMethodAdvisor(CustomAuthorizationManager customAuthorizationManager) {
+        JdkRegexpMethodPointcut pattern = new JdkRegexpMethodPointcut();
+        pattern.setPattern("com.xunlekj.*.controller.*");
+        return new AuthorizationManagerBeforeMethodInterceptor(pattern, customAuthorizationManager);
+    }
+
 }

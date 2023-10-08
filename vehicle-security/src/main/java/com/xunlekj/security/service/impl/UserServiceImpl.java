@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
             throw new LoginException("用户已被禁用!");
         }
 
-        if(!Boolean.TRUE.equals(userInfo.getLocked())) {
+        if(Boolean.TRUE.equals(userInfo.getLocked())) {
             throw new LoginException("用户已被锁定!");
         }
 
