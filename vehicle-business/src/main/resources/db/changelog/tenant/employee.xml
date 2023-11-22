@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="Create EmployeeV2" author="zjr">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="EMPLOYEE"/></not>
+        </preConditions>
+        <createTable tableName="EMPLOYEE" remarks="员工表">
+            <column name="ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="EMPLOYEE_ID_PK" nullable="false"/>
+            </column>
+            <column name="NAME" type="nvarchar(100)" remarks="用户姓名">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="varchar(30)" remarks="用户ID"/>
+            <column name="JOB_NUMBER" type="nvarchar(100)" remarks="工号"/>
+            <column name="GENDER" type="varchar(10)" remarks="性别"/>
+            <column name="PHONE" type="varchar(30)" remarks="电话号码"/>
+            <column name="EMAIL" type="varchar(100)" remarks="邮箱"/>
+            <column name="ADDRESS" type="nvarchar(100)" remarks="地址"/>
+            <column name="ENTRY_TIME" type="DATETIME" remarks="入职时间"/>
+            <column name="BASE_SALARY" type="DECIMAL(10, 2)" remarks="基本工资"/>
+            <column name="ID_CARD" type="varchar(30)" remarks="身份证号码"/>
+            <column name="REMARK" type="nvarchar(300)" remarks="备注"/>
+            <column name="CREATE_TIME" type="DATETIME" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATE_TIME" type="DATETIME" remarks="修改时间">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

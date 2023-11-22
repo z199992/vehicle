@@ -1,6 +1,7 @@
 package com.xunlekj.system.user.model.entity;
 
 import com.xunlekj.jpa.annotations.CustomTableGenerator;
+import com.xunlekj.system.tenant.model.Tenant;
 import com.xunlekj.system.user.model.entity.enums.UserType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -24,7 +26,21 @@ public class UserInfo implements Serializable {
     private String id;
     private String account;
     private String password;
+
+    /**
+     * 昵称
+     */
     private String nickName;
+
+    /**
+     * 手机号码
+     */
+    private String phone;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
     @Enumerated(EnumType.STRING)
     private UserType type;

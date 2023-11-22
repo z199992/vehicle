@@ -19,7 +19,6 @@ class UserInfoRepositoryTest {
         UserInfo userInfo = new UserInfo();
         userInfo.setAccount("test");
         userInfo.setPassword("usexxxr");
-        userInfo.setNickName("test");
         userInfoRepository.save(userInfo);
     }
 }

@@ -1,6 +1,7 @@
 package com.xunlekj.global.controller;
 
 import com.xunlekj.exception.BaseException;
+import com.xunlekj.exception.BaseRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,11 @@ public class ExceptionController {
 
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<String> baseException(BaseException exception) {
+        return ResponseEntity.status(exception.getHttpStatus()).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(BaseRuntimeException.class)
+    public ResponseEntity<String> baseRuntimeException(BaseRuntimeException exception) {
         return ResponseEntity.status(exception.getHttpStatus()).body(exception.getMessage());
     }
 }

@@ -7,3 +7,11 @@ vehicle:
     password: 123
     system-change-log: classpath:db/db.changelog-system.xml
     tenant-change-log: classpath:db/db.changelog-tenant.xml
+server:
+  port: 8082
+#spring:
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true

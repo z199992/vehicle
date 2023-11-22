@@ -78,16 +78,6 @@ public class UserImpl implements User, Serializable {
     }
 
     @Override
-    public String getNickName() {
-        return getUserInfo().getNickName();
-    }
-
-    @Override
-    public List<String> getRoles() {
-        return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-    }
-
-    @Override
     public String getTenantId() {
         return getUserInfo().getTenantId();
     }

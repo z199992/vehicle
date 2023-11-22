@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
-    <changeSet id="Create User Info" author="zjr">
+    <changeSet id="Create User InfoV6" author="zjr">
         <preConditions onFail="MARK_RAN">
             <not><tableExists tableName="USER_INFO"/></not>
         </preConditions>
@@ -14,12 +14,10 @@
             <column name="ACCOUNT" type="varchar(100)" remarks="登录账号">
                 <constraints nullable="false"/>
             </column>
-            <column name="PASSWORD" type="varchar(100)" remarks="登录密码">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NICK_NAME" type="varchar(100)" remarks="用户名（昵称）">
-                <constraints nullable="false"/>
-            </column>
+            <column name="PASSWORD" type="varchar(100)" remarks="登录密码"/>
+            <column name="NICK_NAME" type="varchar(100)" remarks="昵称"/>
+            <column name="PHONE" type="varchar(30)" remarks="电话号码"/>
+            <column name="EMAIL" type="varchar(100)" remarks="邮箱"/>
             <column name="TYPE" type="varchar(30)" remarks="用户类型: 1.Administrator 2.SystemSuperUser 3.TenantManager 4.User"/>
             <column name="EXPIRE_TIME" type="DATETIME" remarks="用戶到期时间"/>
             <column name="CREDENTIALS_EXPIRE_TIME" type="DATETIME" remarks="密码到期时间"/>
@@ -34,7 +32,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="Add-Administrator" author="zjr">
+    <changeSet id="Add-AdministratorV3"  author="zjr">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">select count(ID) from USER_INFO where ID = 'Administrator';</sqlCheck>
         </preConditions>
@@ -42,7 +40,7 @@
             <column name="ID" value="Administrator"/>
             <column name="ACCOUNT" value="administrator"/>
             <column name="PASSWORD" value="$2a$10$fQo5tj6vpZZ7L.vE6PQQLOjN/2rNtD1H/wYhHopsH.XlATh7OHHSe"/>
-            <column name="NICK_NAME" value="Administrator"/>
+            <column name="NICK_NAME" value="超级管理员"/>
             <column name="TYPE" value="Administrator"/>
             <column name="LOCKED" valueBoolean="false"/>
             <column name="ENABLE" valueBoolean="true"/>

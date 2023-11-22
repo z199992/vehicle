@@ -1,6 +1,6 @@
 package com.xunlekj.global.initializer;
 
-import com.xunlekj.module.tenant.service.TenantManagerService;
+import com.xunlekj.module.system.tenant.service.TenantManagerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

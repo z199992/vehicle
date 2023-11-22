@@ -1,7 +1,10 @@
 package com.xunlekj.exception;
 
+import lombok.Getter;
+
 import java.io.Serial;
 
+@Getter
 public class BaseException extends Exception{
     @Serial
     private static final long serialVersionUID = -2800863585054093446L;
@@ -13,7 +16,4 @@ public class BaseException extends Exception{
         this.httpStatus = httpStatus;
     }
 
-    public int getHttpStatus() {
-        return httpStatus;
-    }
 }

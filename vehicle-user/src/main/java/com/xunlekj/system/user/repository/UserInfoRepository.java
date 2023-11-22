@@ -6,6 +6,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserInfoRepository extends JpaRepository<UserInfo, String>, QuerydslPredicateExecutor<UserInfo> {
+public interface UserInfoRepository extends JpaRepository<UserInfo, String>, QuerydslPredicateExecutor<UserInfo>, UserInfoDetailRepository {
 
 }

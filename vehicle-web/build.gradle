@@ -8,6 +8,7 @@ dependencies {
 
     implementation project(":vehicle-user")
     implementation project(":vehicle-security")
+    implementation project(":vehicle-business")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }

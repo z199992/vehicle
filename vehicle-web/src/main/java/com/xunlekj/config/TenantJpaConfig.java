@@ -3,6 +3,7 @@ package com.xunlekj.config;
 import com.xunlekj.jpa.VehicleRoutingDataSource;
 import com.xunlekj.jpa.naming.CustomNamingStrategy;
 import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.engine.transaction.jta.platform.internal.AtomikosJtaPlatform;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,8 @@ public class TenantJpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(VehicleRoutingDataSource dataSource, EntityManagerFactoryBuilder builder) {
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.physical_naming_strategy", CustomNamingStrategy.class.getName());
+//        properties.put("hibernate.transaction.jta.platform", AtomikosJtaPlatform.class.getName());
+//        properties.put("javax.persistence.transactionType", "JTA");
 
         return builder.dataSource(dataSource)
                 .packages("com.xunlekj.tenant.**")

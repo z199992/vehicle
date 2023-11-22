@@ -1,18 +1,13 @@
 package com.xunlekj.security.service.impl;
 
-import com.xunlekj.constant.ModuleConstants;
-import com.xunlekj.constant.RoleConstants;
-import com.xunlekj.enums.Module;
-import com.xunlekj.enums.OperationType;
 import com.xunlekj.exception.LoginException;
 import com.xunlekj.security.model.dto.UserImpl;
 import com.xunlekj.security.service.JsonWebTokenService;
 import com.xunlekj.security.service.UserService;
 import com.xunlekj.system.user.model.entity.UserInfo;
 import com.xunlekj.system.user.service.UserInfoService;
-import io.micrometer.common.util.StringUtils;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,18 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-@Service("userService")
+@Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserInfoService userInfoService;
-
     @Autowired
     private JsonWebTokenService jsonWebTokenService;
     @Autowired
@@ -40,11 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo userInfo = findExistUserInfo(username);
-        List<String> roles = new ArrayList<>();
-
-        roles.add(RoleConstants.Prefix + userInfo.getType());
-        Map<Module, OperationType> moduleOperationTypeMap = getModuleOperationTypeMap(roles);
-        return new UserImpl(userInfo, moduleOperationTypeMap, roles);
+        return new UserImpl(userInfo, userInfoService.getModuleOperationTypeMap(userInfo), userInfoService.getRoles(userInfo));
     }
 
     @Override
@@ -70,20 +55,6 @@ public class UserServiceImpl implements UserService {
         if(!passwordEncoder.matches(rawPassword, encodedPassword)) {
             throw new Exception("密码错误!");
         }
-    }
-
-    private Map<Module, OperationType> getModuleOperationTypeMap(List<String> roles) {
-        Stream<Module> moduleStream = Arrays.stream(Module.values());
-        if(!CollectionUtils.containsAny(roles, RoleConstants.Prefix + RoleConstants.Administrator, RoleConstants.Prefix + RoleConstants.SystemSuperUser)) {
-            moduleStream = moduleStream.filter(m -> !ArrayUtils.contains(ModuleConstants.System_Module, m));
-        }
-        return moduleStream.collect(Collectors.toMap(m -> m, m -> OperationType.Manager));
-    }
-
-    @Override
-    public boolean addUser(UserInfo userInfo) {
-        userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
-        return userInfoService.addUserInfo(userInfo);
     }
 
     /**

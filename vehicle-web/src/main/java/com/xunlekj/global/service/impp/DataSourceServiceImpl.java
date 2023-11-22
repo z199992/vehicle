@@ -8,12 +8,10 @@ import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import liquibase.exception.LiquibaseException;
-import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 
@@ -52,16 +50,6 @@ public class DataSourceServiceImpl implements DataSourceService {
         hikariConfig.setUsername(dataSourceProperties.getUsername());
         hikariConfig.setPassword(dataSourceProperties.getPassword());
 
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-
-        SpringLiquibase springLiquibase = new SpringLiquibase();
-        springLiquibase.setDataSource(dataSource);
-        springLiquibase.setChangeLog(dataSourceProperties.getTenantChangeLog());
-        springLiquibase.setContexts("tenant");
-        springLiquibase.setResourceLoader(resourceLoader);
-        springLiquibase.afterPropertiesSet();
-        log.info("Init tenant data source success, tenant id: {}", tenantId);
-
-        return dataSource;
+        return new HikariDataSource(hikariConfig);
     }
 }
