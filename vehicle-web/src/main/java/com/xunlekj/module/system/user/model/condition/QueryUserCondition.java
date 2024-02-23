@@ -27,6 +27,7 @@ public class QueryUserCondition implements Condition {
     @Schema(description = "租户ID")
     private String tenantId;
 
+
     @Override
     public Predicate getPredicate() {
         BooleanBuilder builder = new BooleanBuilder();
@@ -38,6 +39,7 @@ public class QueryUserCondition implements Condition {
         builder.and(createPredicate(enabled, QUserInfo.userInfo.enable::eq));
         builder.and(createPredicate(isLocked, QUserInfo.userInfo.locked::eq));
         builder.and(createPredicate(tenantId, QUserInfo.userInfo.tenantId::eq));
+
         return builder;
     }
 }

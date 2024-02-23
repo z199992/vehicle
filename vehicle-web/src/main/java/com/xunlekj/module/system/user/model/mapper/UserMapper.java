@@ -7,6 +7,7 @@ import com.xunlekj.module.system.user.model.value.AddTenantManager;
 import com.xunlekj.module.system.user.model.value.UpdateUserValue;
 import com.xunlekj.module.system.user.model.view.CurrentUserInfo;
 import com.xunlekj.module.system.user.model.view.UserView;
+import com.xunlekj.module.tenant.employee.model.value.AddUserValue;
 import com.xunlekj.system.user.model.dto.UserDetail;
 import com.xunlekj.system.user.model.entity.UserInfo;
 import com.xunlekj.tenant.employee.model.entity.Employee;
@@ -44,4 +45,6 @@ public interface UserMapper {
     UserInfo updateBaseInfo(@MappingTarget UserInfo target, UserInfo source);
 
     UserInfo toEntity(UpdateUserValue userValue);
+
+    UserInfo toEntity(AddUserValue user);
 }

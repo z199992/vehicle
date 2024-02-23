@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import javax.naming.NoPermissionException;
+import java.util.List;
 
 public interface UserManageService {
     UserInfo addUser(String operationUserId, UserInfo userInfo) throws NoPermissionException;
@@ -22,4 +23,6 @@ public interface UserManageService {
     Page<UserView> findAllUser(Predicate predicate, String operationUserId, Pageable pageable) throws NoPermissionException;
 
     void updateUserPassword(String operationId, String userId, String password) throws NotFoundDataException, NoPermissionException;
+
+    List<UserInfo> findAll(Predicate predicate);
 }

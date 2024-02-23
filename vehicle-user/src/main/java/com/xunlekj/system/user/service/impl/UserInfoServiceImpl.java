@@ -11,6 +11,7 @@ import com.xunlekj.system.user.model.entity.QUserInfo;
 import com.xunlekj.system.user.model.entity.UserInfo;
 import com.xunlekj.system.user.repository.UserInfoRepository;
 import com.xunlekj.system.user.service.UserInfoService;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,5 +104,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
 
         return moduleStream.collect(Collectors.toMap(m -> m, m -> OperationType.Manager));
+    }
+
+    @Override
+    public List<UserInfo> findAll(Predicate predicate) {
+        return IterableUtils.toList(repository.findAll(predicate));
     }
 }

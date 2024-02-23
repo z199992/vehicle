@@ -63,7 +63,7 @@ public class TenantController {
     )
     @GetMapping("/list/name")
     @IsSystemAdministrator
-    public List<TenantValue> listByName(@RequestParam String name) {
+    public List<TenantValue> listByName(@RequestParam(required = false) String name) {
         return service.findAllByName(name).stream().map(mapper::toView).toList();
     }
 

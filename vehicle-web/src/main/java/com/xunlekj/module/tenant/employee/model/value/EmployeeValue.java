@@ -1,6 +1,7 @@
 package com.xunlekj.module.tenant.employee.model.value;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -10,6 +11,10 @@ import java.time.LocalDate;
 
 @Data
 public class EmployeeValue {
+    @Schema(description = "ID")
+    private Integer id;
+    @JsonIgnore
+    private String userId;
     @Schema(description = "工号")
     private String jobNumber;
     @NotBlank(message = "姓名不能为空")

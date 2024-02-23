@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
                 break;
             case TenantManager:
             case User:
-                if(StringUtils.isNotBlank(userInfo.getTenantId())) {
+                if(StringUtils.isBlank(userInfo.getTenantId())) {
                     throw new LoginException("用户未分配租户!");
                 }
         }

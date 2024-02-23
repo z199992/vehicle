@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -131,5 +132,10 @@ public class UserManageServiceImpl implements UserManageService {
         checkOperationUser(operationId, userInfo);
         userInfo.setPassword(passwordEncoder.encode(password));
         service.saveUserInfo(userInfo);
+    }
+
+    @Override
+    public List<UserInfo> findAll(Predicate predicate) {
+        return service.findAll(predicate);
     }
 }

@@ -9,6 +9,7 @@ import com.xunlekj.system.tenant.model.Tenant;
 import com.xunlekj.system.tenant.service.TenantService;
 import liquibase.exception.LiquibaseException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,7 +72,7 @@ public class TenantManagerServiceImpl implements TenantManagerService {
 
     @Override
     public List<Tenant> findAllByName(String name) {
-        return service.findAllBy(QTenant.tenant.name.likeIgnoreCase("%" + name + "%"));
+        return service.findAllBy(StringUtils.isNotBlank(name) ? QTenant.tenant.name.likeIgnoreCase("%" + name + "%") : new BooleanBuilder());
     }
 
     private Predicate createPredicateByKey(String key) {

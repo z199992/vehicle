@@ -33,4 +33,6 @@ public interface UserInfoService {
     List<String> getRoles(UserInfo userInfo);
 
     Map<Module, OperationType> getModuleOperationTypeMap(UserInfo userInfo);
+
+    List<UserInfo> findAll(Predicate predicate);
 }
