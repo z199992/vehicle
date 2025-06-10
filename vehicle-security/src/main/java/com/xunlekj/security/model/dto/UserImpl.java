@@ -39,32 +39,32 @@ public class UserImpl implements User, Serializable {
 
     @Override
     public String getPassword() {
-        return null;
+        return userInfo.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return userInfo.getAccount();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return userInfo.getExpireTime() == null || userInfo.getExpireTime().isAfter(java.time.LocalDateTime.now());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return !Boolean.TRUE.equals(userInfo.getLocked());
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return userInfo.getCredentialsExpireTime() == null || userInfo.getCredentialsExpireTime().isAfter(java.time.LocalDateTime.now());
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return Boolean.TRUE.equals(userInfo.getEnable());
     }
 
     @Override
